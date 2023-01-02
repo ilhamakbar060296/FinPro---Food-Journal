@@ -138,6 +138,21 @@ const removeEditIngredient = (i) => {
       });
   }
 
+  const handleDelete = (id) => {
+    if (window.confirm(`Delete ID ${id}?`)) {
+      Axios(`${process.env.REACT_APP_BASEURL}/api/v1/delete-food/${id}`,{
+        method: 'delete',        
+        headers : {  
+          Authorization: 'Bearer ' + localStorage.getItem('jwt') ,        
+          apiKey: `${process.env.REACT_APP_APIKEY}`,
+        }
+      })
+        .then(function (response) {
+          getData()
+        });
+    }
+  }
+
   // const logOut = () => {
   //   localStorage.clear();
   //   return window.location.assign('/');    
@@ -173,7 +188,7 @@ const removeEditIngredient = (i) => {
           <Row>
             <ButtonGroup aria-label="Action">
               <Button size="sm" variant="primary" onClick={() => getIdData(item.id)}>Edit</Button>
-              <Button size="sm" variant="danger" >Delete</Button>
+              <Button size="sm" variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
             </ButtonGroup>
           </Row>          
         </Col>
