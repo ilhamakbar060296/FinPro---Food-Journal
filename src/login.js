@@ -50,39 +50,7 @@
         localStorage.setItem('role', role);
         localStorage.setItem('jwt', JWT_Token);
         setSubmit();
-        window.location.assign('/home');
-        // const requestToken = response.data.request_token
-        // console.log("Request Token : "+requestToken);
-        // Axios.post(`${process.env.REACT_APP_BASEURL}authentication/token/validate_with_login?api_key=${process.env.REACT_APP_APIKEY}`,
-        //   {
-        //     username: values.username,
-        //     password: values.password,
-        //     request_token: requestToken
-        //   }).then(res => {
-        //     const validatedRequestToken = res.data.request_token
-        //     console.log("Validated Token : "+validatedRequestToken);
-        //     Axios.post(`${process.env.REACT_APP_BASEURL}authentication/session/new?api_key=${process.env.REACT_APP_APIKEY}`,
-        //       {
-        //         request_token: validatedRequestToken
-        //       }).then(res => {
-        //         const sessionID = res.data.session_id
-        //         setSubmit()
-        //         console.log("Session ID : " + sessionID);
-        //         localStorage.setItem('session', sessionID);
-        //         Axios.get(`${process.env.REACT_APP_BASEURL}account?api_key=${process.env.REACT_APP_APIKEY}&session_id=${sessionID}`)
-        //         .then(res => {
-        //            console.log(res);
-        //            const user = res.data.username
-        //            console.log("Username adalah "+user);
-        //            localStorage.setItem('username', user)                                     
-        //            window.location.assign('/home');
-        //         })                  
-        //       })
-        //   }).catch(error => {
-        //    console.log("some error occurred", error)
-        //    setSubmit()
-        //    setError('Invalid Username or Password')
-        //   })
+        window.location.assign('/home');        
       }).catch(error => {
            console.log("some error occurred", error)
            setSubmit()
