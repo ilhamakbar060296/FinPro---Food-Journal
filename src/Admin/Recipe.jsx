@@ -7,9 +7,9 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import './App.css';
+import './Home.css';
 
-function App() {    
+function Recipe() {    
   const [data, setData] = useState([]);
   const [add, setAdd] = useState(false);
   const [name, setName] = useState('');
@@ -296,4 +296,4 @@ const removeEditIngredient = (i) => {
   );
 }
 
-export default App;
+export default Recipe;

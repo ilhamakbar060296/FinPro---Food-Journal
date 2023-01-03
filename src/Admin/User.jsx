@@ -7,9 +7,9 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import './App.css';
+import './Home.css';
 
-function App() {    
+function User() {    
   const [data, setData] = useState([]);
   const [add, setAdd] = useState(false);
   const [name, setName] = useState('');
@@ -160,7 +160,7 @@ const removeEditIngredient = (i) => {
   return (    
     <> 
     <Container fluid>
-      <Row><h1>Table of Recipe</h1></Row>      
+      <Row><h1>Table of User</h1></Row>      
       <Row>
         <Col sm={1}></Col>
         <Col sm={10} style={{display : "flex" ,justifyContent : "center", alignItems : "center"}}>
@@ -296,4 +296,4 @@ const removeEditIngredient = (i) => {
   );
 }
 
-export default App;
+export default User;
