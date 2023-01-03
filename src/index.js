@@ -8,6 +8,9 @@ import Home from './Admin/Home';
 import Recipe from './Admin/Recipe';
 import User from './Admin/User';
 import About from './Admin/About';
+import GHome from './General/Home';
+import GRecipe from './General/Recipe';
+import GAbout from './General/About';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -45,13 +48,21 @@ const router = createBrowserRouter([
       </Container>
     </Navbar> 
     : 
-    <Navbar bg="dark" variant="dark">           
-        <Nav className="me-auto">            
-          <label style={{color : "white"}}>User : {localStorage.getItem('username')}</label><br />            
-        </Nav>
-        <Nav>            
-        <Button variant="danger" onClick={() => logOut()}>Logout</Button>
-        </Nav>        
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container fluid>
+        <Navbar.Brand href="#home">User : {localStorage.getItem('username')}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="Home">Home</Nav.Link>            
+            <Nav.Link href="Recipe">Recipe</Nav.Link>
+            <Nav.Link href="About">About Us</Nav.Link>            
+          </Nav>
+          <Nav>            
+          <Button variant="danger" onClick={() => logOut()}>Logout</Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
     )
     : ''
@@ -94,8 +105,7 @@ const router = createBrowserRouter([
           </div>      
         </div>
         }
-        </>
-        
+        </>        
       },
       {
         path: "/Admin/User",
@@ -126,7 +136,55 @@ const router = createBrowserRouter([
             </div>                  
           </div>      
         </div>
+        }        
+        </>
+      },
+      {
+        path: "/General/Home",
+        element: <>
+        {localStorage.getItem('jwt') ?
+        <GHome /> :
+        <div className='forbid-container'>
+          <div className='rectangle'>
+            <div className='login-page'>
+            <h1>Forbidden Entry</h1><br /> 
+            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
+            </div>                  
+          </div>      
+        </div>
         }
+        </>        
+      },
+      {
+        path: "/General/Recipe",
+        element: <>
+        {localStorage.getItem('jwt') ?
+        <GRecipe /> :
+        <div className='forbid-container'>
+          <div className='rectangle'>
+            <div className='login-page'>
+            <h1>Forbidden Entry</h1><br /> 
+            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
+            </div>                  
+          </div>      
+        </div>
+        }
+        </>        
+      },      
+      {
+        path: "/General/About",
+        element: <>
+        {localStorage.getItem('jwt') ?
+        <GAbout /> :
+        <div className='forbid-container'>
+          <div className='rectangle'>
+            <div className='login-page'>
+            <h1>Forbidden Entry</h1><br /> 
+            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
+            </div>                  
+          </div>      
+        </div>
+        }        
         </>
       },
     ],
