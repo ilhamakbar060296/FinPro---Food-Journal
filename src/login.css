@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     text-align: center;  
-    background: url(https://codingmasterweb.com/wp-content/uploads/2021/12/Copy-of-Copy-of-for-thumbnail-1.jpg) no-repeat center center fixed;
+    background: url(https://as1.ftcdn.net/v2/jpg/02/52/12/40/1000_F_252124067_aCtp9ZD934RboKmjJzkXiwYDL7XkNjpn.jpg) no-repeat center center fixed;
     background-size: cover;
     height: 100%;
 }
@@ -16,7 +16,7 @@
     height: 400px;
 }
 .login-image{
-    width: 329px;
+    width: 100%;
     height: 400px;
     box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.6);
     margin-top: 100px;
@@ -29,9 +29,9 @@
     margin-top: 10px;
 }
 
-#username, #password{
-    margin-left: 25px;    
-    width: 25vw;
+#email, #password{
+    margin: auto;    
+    width: 80%;
 }
 .forbid-container{
     display: flex;
