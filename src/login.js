@@ -9,14 +9,6 @@
   function Login() {
   const [error, setError] = useState();
   const [submit, setSubmit] = useState();
-  
-  // var config = {
-  //   method : 'get',
-  //   url : `${process.env.REACT_APP_BASEURL}/api/v1/login`,
-  //   headers: {
-  //     'apiKey' : `${process.env.REACT_APP_APIKEY}`
-  //   },
-  // }
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -44,13 +36,16 @@
         console.log(response);
         const name = response.data.user.name;
         const role = response.data.user.role;
-        const JWT_Token = response.data.token;
-        console.log("Nama : "+name);
+        const JWT_Token = response.data.token;        
         localStorage.setItem('username', name);
         localStorage.setItem('role', role);
         localStorage.setItem('jwt', JWT_Token);
         setSubmit();
-        window.location.assign('/home');        
+        if(role === "admin"){
+          window.location.assign('/Admin/Home');        
+        }else{
+          window.location.assign('/General/Home');        
+        }
       }).catch(error => {
            console.log("some error occurred", error)
            setSubmit()
