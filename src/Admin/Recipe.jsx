@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
 import './Home.css';
 
 function Recipe() {    
@@ -160,36 +161,61 @@ const removeEditIngredient = (i) => {
   return (    
     <> 
     <Container fluid>
-      <Row><h1>Table of Recipe</h1></Row>      
       <Row>
-        <Col sm={1}></Col>
-        <Col sm={10} style={{display : "flex" ,justifyContent : "center", alignItems : "center"}}>
-          <Button size="xl" variant="success" onClick={() => addRecipe()}>+ Add Recipe</Button>
-        </Col> 
-        <Col sm={1}></Col>       
-      </Row>      
-      {data.map((item, index) => {
-        return <Row key={index}>
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>
-        <Col sm={1} className="recipe" style={{textAlign : "center"}}>{index + 1}</Col> 
-        <Col sm={3} className="recipe">
-        <img  src={item.imageUrl} alt={item.name}></img>
-        </Col> 
-        <Col sm={6} className="recipe">
-          <Row className="recipe-detail">{item.id}</Row>
-          <Row className="recipe-detail">{item.name}</Row>
-          <Row className="recipe-detail">{item.description}</Row>
-          <Row className="recipe-detail">{item.rating}</Row>
-          <Row>
-            <ButtonGroup aria-label="Action">
-              <Button size="sm" variant="primary" onClick={() => getIdData(item.id)}>Edit</Button>
-              <Button size="sm" variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
-            </ButtonGroup>
-          </Row>          
+        <Col>
+          <Row><h1>Table of Recipe</h1></Row><br />
+          <Row ><Button size="xl" variant="success" onClick={() => addRecipe()}>+ Add Recipe</Button></Row>
+          <Table responsive bordered hover className='table-Recipe'>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Image</th>
+                <th colSpan={3}>Detail</th>                
+              </tr>
+            </thead>
+            <tbody>
+            {data.map((item, index) => {
+              return <tr>
+                <td>{index + 1}</td>
+                <td><img  src={item.imageUrl} alt={item.name}></img></td>
+                <td style={{textAlign : "left"}}>
+                  <tr>
+                    <td>ID</td>
+                    <td>: </td>
+                    <td>{item.id}</td>
+                  </tr> 
+                  <tr>
+                    <td>Name</td>
+                    <td>: </td>
+                    <td>{item.name}</td>
+                  </tr> 
+                  <tr>
+                    <td>Description</td>
+                    <td>: </td>
+                    <td>{item.description}</td>
+                  </tr>                  
+                  <tr>
+                    <td>Rating</td>
+                    <td>: </td>
+                    <td>{item.rating}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={3}>
+                      <ButtonGroup aria-label="Action" size="xl">
+                       <Button variant="primary" onClick={() => getIdData(item.id)}>Edit</Button>
+                       <Button variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
+                      </ButtonGroup>
+                    </td>
+                  </tr>
+                </td>                              
+              </tr>             
+             })}
+            </tbody>
+          </Table>         
         </Col>
-        <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>
-          </Row>
-      })}            
+        <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>      
+      </Row>                            
       </Container>
       <Modal show={add} onHide={addClose}>
         <Modal.Header closeButton>
