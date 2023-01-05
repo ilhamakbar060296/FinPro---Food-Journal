@@ -59,7 +59,7 @@
     <>
       <div className='login-container'>
         <div>
-          <img className='login-image' src='https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg' alt='theMovieDB'></img>
+          <img className='login-image' src='https://images.tokopedia.net/img/cache/500-square/VqbcmM/2021/10/22/7229bc18-be82-443a-87f0-3164500fb0f0.jpg' alt='theMovieDB'></img>
         </div>
         <div className='rectangle'>
           <div className='login-page'>
