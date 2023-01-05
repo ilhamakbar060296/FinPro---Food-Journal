@@ -8,6 +8,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
 import './Home.css';
 
 function User() {    
@@ -145,73 +146,79 @@ function User() {
       <Row>
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>  
         <Col>
-          <h1>Table of User</h1>
+          <Row><h1>Table of User</h1></Row>
           <Row><h2>Admin</h2></Row>
-          <Row>
-            <Col sm={1} className="user"><b>No</b></Col>
-            <Col sm={2} className="user"><b>ID</b></Col>
-            <Col sm={2} className="user"><b>Image</b></Col>
-            <Col sm={1} className="user"><b>Name</b></Col>
-            <Col sm={2} className="user"><b>Email</b></Col>
-            <Col sm={2} className="user"><b>Phone Number</b></Col>
-            <Col sm={2} className="user"><b>Action</b></Col>           
-          </Row>
-          <Row>
-            <Col sm={1} className="user">1</Col>
-            <Col sm={2} className="user">{adminId}</Col>
-            <Col sm={2} className="user">
-              <img src={adminFoto} alt={adminName}></img>
-            </Col>
-            <Col sm={1} className="user">{adminName}</Col>
-            <Col sm={2} className="user">{adminEmail}</Col>
-            <Col sm={2} className="user">{adminPhone}</Col>
-            <Col sm={2} className="user">            
-              <Button size="sm" variant="primary" onClick={() => getProfile()}>Edit</Button>
-            </Col>
-          </Row>
-          <br />          
-          <Row><h2>All User</h2></Row>
-          <Row>
-            <Col sm={1} className="user"><b>No</b></Col>
-            <Col sm={2} className="user"><b>ID</b></Col>
-            <Col sm={2} className="user"><b>Image</b></Col>
-            <Col sm={1} className="user"><b>Name</b></Col>
-            <Col sm={2} className="user"><b>Email</b></Col>
-            <Col sm={2} className="user"><b>Phone Number</b></Col>
-            <Col sm={2} className="user"><b>Action</b></Col>
-          </Row>
+          <Table responsive bordered hover className='table-Recipe'>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>1</td>
+                <td>{adminId}</td>
+                <td><img src={adminFoto} alt={adminName}></img></td>
+                <td>{adminName}</td> 
+                <td>{adminEmail}</td>
+                <td>{adminPhone}</td>               
+                <td>
+                  <Button size="sm" variant="primary" onClick={() => getProfile()}>Edit</Button>
+                </td>               
+              </tr>           
+            </tbody>
+          </Table>
+          <br />  
+          <Row><h2>All User</h2></Row> 
+          <Table responsive bordered hover className='table-Recipe'>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
             {data.map((item, index) => {
-            return <Row key={index}>               
-            <Col>
-              <Row>
-                <Col sm={1} className="user">{index + 1}</Col>
-                <Col sm={2} className="user">{item.id}</Col> 
-                <Col sm={2} className="user"><img  src={item.profilePictureUrl} alt={item.name}></img></Col>
-                <Col sm={1} className="user">{item.name}</Col> 
-                <Col sm={2} className="user">{item.email}</Col> 
-                <Col sm={2} className="user">{item.phoneNumber}</Col> 
-                <Col sm={2} className="user-action">                              
-                <ButtonGroup>
-                {radios.map((radio, idx) => (                  
-                  <ToggleButton
-                    key={idx}
-                    id={`radio-${idx}-${index}`}
-                    type="radio"
-                    variant={idx % 2 ? 'outline-success' : 'outline-danger'}
-                    name={`radio-${index}`}
-                    value={radio.value}
-                    checked={item.role === radio.value}
-                    onChange={() => updateRole(item.id, item.role)}
-                  >                                     
-                    {radio.value}
-                  </ToggleButton>
-                ))}                
-              </ButtonGroup>         
-                </Col>
-              </Row>
-            </Col>        
-          </Row>
-      })}
+              return <tr>
+                <td>{index + 1}</td>
+                <td>{item.id}</td>
+                <td><img src={item.profilePictureUrl} alt={item.name}></img></td>
+                <td>{item.name}</td> 
+                <td>{item.email}</td>
+                <td>{item.phoneNumber}</td>
+                <td>
+                  <ButtonGroup>
+                  {radios.map((radio, idx) => (                  
+                    <ToggleButton
+                      key={idx}
+                      id={`radio-${idx}-${index}`}
+                      type="radio"
+                      variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                      name={`radio-${index}`}
+                      value={radio.value}
+                      checked={item.role === radio.value}
+                      onChange={() => updateRole(item.id, item.role)}
+                    >                                     
+                      {radio.value}
+                    </ToggleButton>
+                  ))}                
+                </ButtonGroup>
+                </td>
+            </tr>
+            })}           
+            </tbody>
+          </Table>                  
         </Col>        
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>  
       </Row>                   
