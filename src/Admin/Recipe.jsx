@@ -171,15 +171,15 @@ const removeEditIngredient = (i) => {
       {data.map((item, index) => {
         return <Row key={index}>
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>
-        <Col sm={1} style={{border : "1px solid black", textAlign : "center"}}>{index + 1}</Col> 
-        <Col sm={3} style={{border : "1px solid black"}}>
+        <Col sm={1} className="recipe" style={{textAlign : "center"}}>{index + 1}</Col> 
+        <Col sm={3} className="recipe">
         <img  src={item.imageUrl} alt={item.name}></img>
         </Col> 
-        <Col sm={6} style={{border : "1px solid black"}}>
-          <Row style={{borderBottom : "1px solid black"}}>{item.id}</Row>
-          <Row style={{borderBottom : "1px solid black"}}>{item.name}</Row>
-          <Row style={{borderBottom : "1px solid black"}}>{item.description}</Row>
-          <Row style={{borderBottom : "1px solid black"}}>{item.rating}</Row>
+        <Col sm={6} className="recipe">
+          <Row className="recipe-detail">{item.id}</Row>
+          <Row className="recipe-detail">{item.name}</Row>
+          <Row className="recipe-detail">{item.description}</Row>
+          <Row className="recipe-detail">{item.rating}</Row>
           <Row>
             <ButtonGroup aria-label="Action">
               <Button size="sm" variant="primary" onClick={() => getIdData(item.id)}>Edit</Button>
