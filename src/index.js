@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import './index.css';
-// import App from './App';
 import Login from './login';
 import Home from './Admin/Home';
 import Recipe from './Admin/Recipe';
@@ -16,7 +15,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
 const logOut = () => {
