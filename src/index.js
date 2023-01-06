@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import './index.css';
 import Login from './login';
+import Register from './register';
 import Home from './Admin/Home';
 import Recipe from './Admin/Recipe';
 import User from './Admin/User';
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
     (localStorage.getItem('role') === 'admin'  ? 
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">User : {localStorage.getItem('username')} ({localStorage.getItem('role')})</Navbar.Brand>
+        <Navbar.Brand href="Home">User : {localStorage.getItem('username')} ({localStorage.getItem('role')})</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/Admin/Home",
