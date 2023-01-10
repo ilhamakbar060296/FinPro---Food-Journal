@@ -253,12 +253,7 @@ const removeEditIngredient = (i) => {
                 <div key={index}>
                   <div>
                     <Form.Control name="ingredients" value={element.ingredients} type="text" placeholder="Enter Ingredient" 
-                    onChange = {(e) => ingredientChange(e, index)} required/>                     
-                    {ingredients.length - 1 === index && ingredients.length < 10 && (
-                      <Button variant='success' onClick={addIngredient}>
-                      + Add Ingredient
-                      </Button>                      
-                    )}
+                    onChange = {(e) => ingredientChange(e, index)} required/>                                         
                   </div>
                   <div>
                   {ingredients.length > 1 && (
@@ -266,7 +261,13 @@ const removeEditIngredient = (i) => {
                     - Remove
                     </Button>
                   )}
-                  </div>                
+                  </div>  
+                  <br />
+                  {ingredients.length - 1 === index && ingredients.length < 10 && (
+                      <Button variant='success' onClick={addIngredient}>
+                      +Add Ingredient
+                      </Button>                      
+                    )}              
                 </div>                              
               ))}              
             </Form.Group>
@@ -302,12 +303,7 @@ const removeEditIngredient = (i) => {
                 <div key={index}>                  
                   <div>
                     <Form.Control name="ingredients" value={ingredientsEdit[index]} type="text" placeholder="Enter Ingredient" 
-                    onChange = {(e) => ingredientEditChange(e, index)} required/>                                         
-                    {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 10 && (
-                      <Button variant='success' onClick={addEditIngredient}>
-                      + Add Ingredient
-                      </Button>                      
-                    )}
+                    onChange = {(e) => ingredientEditChange(e, index)} required/>                                                             
                   </div>
                   <div>
                   {ingredientsEdit.length > 1 && (
@@ -315,7 +311,13 @@ const removeEditIngredient = (i) => {
                     - Remove
                     </Button>
                   )}
-                  </div>                
+                  </div> 
+                  <br />
+                  {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 10 && (
+                      <Button variant='success' onClick={addEditIngredient}>
+                      +Add Ingredient
+                      </Button>                      
+                    )}               
                 </div>                              
               ))}              
             </Form.Group>
