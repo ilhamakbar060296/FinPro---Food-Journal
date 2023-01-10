@@ -1,0 +1,20 @@
+.register-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;  
+    background: url(https://as1.ftcdn.net/v2/jpg/02/52/12/40/1000_F_252124067_aCtp9ZD934RboKmjJzkXiwYDL7XkNjpn.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+.register-rectangle{
+    background: #ffffff;
+    box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.6);
+    margin-top: 50px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 50%;
+    height: 90%;
+}
+.register-page{
+    margin-top: 10px;
+}

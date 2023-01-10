@@ -68,7 +68,7 @@
             <Form.Group className="mb-3">
               <Form.Label>email</Form.Label>
               <Form.Control 
-              id="email"
+              id="loginEmail"
               name="email" 
               type="text" 
               placeholder="Enter email"
@@ -79,12 +79,11 @@
             </Form.Group>
             {formik.touched.email && formik.errors.email ? (
               <div style={{ color: 'red' }}>{formik.errors.email}</div>
-            ) : null}
-            {/* <br /> */}
+            ) : null}            
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control 
-              id="password"
+              id="loginPassword"
               name="password"
               type="password" 
               placeholder="Password"
@@ -102,7 +101,8 @@
             {submit ? <label>Loading...</label> : null}
             {error ? <label>{error}</label>:null}
           </Form>
-          </div>                  
+          </div> 
+          <a href="register">Don't have account yet? Click Here</a>                 
         </div>      
       </div>      
     </>
