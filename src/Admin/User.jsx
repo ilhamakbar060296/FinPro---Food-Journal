@@ -21,7 +21,7 @@ function User() {
   const [edit, setEdit] = useState(false);
   const [editName, editAdminName] = useState('');
   const [editEmail, editAdminEmail] = useState('');
-  const [editFoto, editAdminFoto] = useState('');
+  const [editFoto, editAdminFoto] = useState(null);
   const [editPhone, editAdminPhone] = useState('');
   const editClose = () => setEdit(false);   
   const radios = [
@@ -77,29 +77,41 @@ function User() {
   }
 
   const updateProfile = () => { 
-    console.log("Admin Name : "+editName);       
-    Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-profile`,{
-      method: 'post',
-      data: {
-        name : editName,
-        profilePictureUrl : editFoto,
-        email : editEmail,
-        phoneNumber : editPhone,
-      },
+    console.log("Admin Name : "+editName); 
+    console.log(editFoto);
+    const formData = new FormData();        
+    formData.append('image', editFoto);
+    Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
       headers : {
-        Authorization: 'Bearer ' + localStorage.getItem('jwt') ,
         apiKey: `${process.env.REACT_APP_APIKEY}`,
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
-    })
-    .then(response => {
-      editAdminName(''); 
-      editAdminFoto('');
-      editAdminEmail('');
-      editAdminPhone('');
-      getData();      
-      getAdminData();  
-      editClose(false)    
-    })         
+    }).then(response => {
+      console.log(response);
+      console.log("image url : "+response.data.url);
+      Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-profile`,{
+        method: 'post',
+        data: {
+          name : editName,
+          profilePictureUrl : response.data.url,
+          email : editEmail,
+          phoneNumber : editPhone,
+        },
+        headers : {
+          Authorization: 'Bearer ' + localStorage.getItem('jwt') ,
+          apiKey: `${process.env.REACT_APP_APIKEY}`,
+        }
+      })
+      .then(response => {
+        editAdminName(''); 
+        editAdminFoto('');
+        editAdminEmail('');
+        editAdminPhone('');
+        getData();      
+        getAdminData();  
+        editClose(false)    
+      }) 
+    })                  
   }
 
   const updateRole = (id, v) => {    
@@ -228,22 +240,23 @@ function User() {
           <Modal.Title>Edit Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form encType="multipart/form-data">
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control value={adminName} type="text" onChange={(e) => editAdminName(e.target.value)} placeholder="Enter name" />
+              <Form.Label>Name</Form.Label>              
+              <Form.Control defaultValue={adminName} type="text" onChange={(e) => 
+                editAdminName(e.target.value)} placeholder="Enter name" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicImage">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control value={adminFoto} name="image" type="text" onChange={(e) => editAdminFoto(e.target.value)} placeholder="Place Image URL" />
+              <Form.Label>Image</Form.Label>              
+              <Form.Control name="image" type="file" onChange={(e) => editAdminFoto(e.target.files[0])}/>
             </Form.Group>                        
             <Form.Group className="mb-3" controlId="formBasicImage">
               <Form.Label>Email</Form.Label>
-              <Form.Control value={adminEmail} name="email" type="text" onChange={(e) => editAdminEmail(e.target.value)} placeholder="Place Image URL" />
+              <Form.Control defaultValue={adminEmail} name="email" type="text" onChange={(e) => editAdminEmail(e.target.value)} placeholder="Place Image URL" />
             </Form.Group> 
             <Form.Group className="mb-3" controlId="formBasicImage">
               <Form.Label>HP</Form.Label>
-              <Form.Control value={adminPhone} name="phone" type="text" onChange={(e) => editAdminPhone(e.target.value)} placeholder="Place Image URL" />
+              <Form.Control defaultValue={adminPhone} name="phone" type="text" onChange={(e) => editAdminPhone(e.target.value)} placeholder="Place Image URL" />
             </Form.Group> 
           </Form>
         </Modal.Body>

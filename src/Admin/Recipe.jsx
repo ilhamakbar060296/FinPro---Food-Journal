@@ -23,7 +23,7 @@ function Recipe() {
   const [edit, setEdit] = useState(false);
   const [nameEdit, editName] = useState('');
   const [descEdit, editDesc] = useState('');
-  const [imageEdit, editImage] = useState('');
+  const [imageEdit, editImage] = useState(null);
   const [ingredientsEdit, editIngredients] = useState(['']);
   const editClose = () => setEdit(false);
   const editRecipe = (id) => setEdit(id);
@@ -116,27 +116,39 @@ const removeEditIngredient = (i) => {
 
   const handleEdit = (id) => {
     console.log("Food ID : "+id);
-    Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-food/${id}`,{
-      method: 'post',
-      data: {
-        name: nameEdit,
-        description: descEdit,
-        imageUrl: imageEdit,
-        ingredients: [...ingredientsEdit],
-      }, 
-      headers : {  
-        Authorization: 'Bearer ' + localStorage.getItem('jwt') ,        
+    console.log(imageEdit);
+    const formData = new FormData();        
+    formData.append('image', imageEdit);
+    Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
+      headers : {
         apiKey: `${process.env.REACT_APP_APIKEY}`,
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
-    })
-      .then(function (response) {
-        editName('');
-        editDesc('');
-        editImage('');
-        editIngredients(['']);
-        getData();
-        editClose(false)
-      });
+    }).then(response => {
+      console.log(response);
+      console.log("image url : "+response.data.url);
+      Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-food/${id}`,{
+        method: 'post',
+        data: {
+          name: nameEdit,
+          description: descEdit,
+          imageUrl: response.data.url,
+          ingredients: [...ingredientsEdit],
+        }, 
+        headers : {  
+          Authorization: 'Bearer ' + localStorage.getItem('jwt') ,        
+          apiKey: `${process.env.REACT_APP_APIKEY}`,
+        }
+      })
+        .then(function (response) {
+          editName('');
+          editDesc('');
+          editImage('');
+          editIngredients(['']);
+          getData();
+          editClose(false)
+        });
+    })    
   }
 
   const handleDelete = (id) => {
@@ -242,7 +254,7 @@ const removeEditIngredient = (i) => {
                   <div>
                     <Form.Control name="ingredients" value={element.ingredients} type="text" placeholder="Enter Ingredient" 
                     onChange = {(e) => ingredientChange(e, index)} required/>                     
-                    {ingredients.length - 1 === index && ingredients.length < 4 && (
+                    {ingredients.length - 1 === index && ingredients.length < 10 && (
                       <Button variant='success' onClick={addIngredient}>
                       + Add Ingredient
                       </Button>                      
@@ -278,7 +290,7 @@ const removeEditIngredient = (i) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicImage">
               <Form.Label>Image URL</Form.Label>
-              <Form.Control value={imageEdit} name="image" type="text" onChange={(e) => editImage(e.target.value)} placeholder="Place Image URL" />
+              <Form.Control name="image" type="file" onChange={(e) => editImage(e.target.files[0])} placeholder="Place Image URL" />
             </Form.Group>            
             <Form.Group className="mb-3" controlId="formBasicDesc">
               <Form.Label>Description</Form.Label>          
@@ -291,7 +303,7 @@ const removeEditIngredient = (i) => {
                   <div>
                     <Form.Control name="ingredients" value={ingredientsEdit[index]} type="text" placeholder="Enter Ingredient" 
                     onChange = {(e) => ingredientEditChange(e, index)} required/>                                         
-                    {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 4 && (
+                    {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 10 && (
                       <Button variant='success' onClick={addEditIngredient}>
                       + Add Ingredient
                       </Button>                      
