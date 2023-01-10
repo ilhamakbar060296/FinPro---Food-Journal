@@ -11,6 +11,13 @@ import Col from 'react-bootstrap/Col';
 function Register() {
 const [error, setError] = useState();
 const [submit, setSubmit] = useState();
+const [selectedImage, setSelectedImage] = useState(null);
+const [url, setUrl] = useState('');
+
+const handleFileSelect = (event) => {  
+  setSelectedImage(event.target.files[0]);
+}
+
 const formik = useFormik({
   initialValues: {
     name: '',
@@ -18,7 +25,7 @@ const formik = useFormik({
     password: '',
     passwordRepeat: '',
     role: 'general',
-    profilePictureUrl: '',
+    profilePictureUrl: url,
     phoneNumber: ''
   },
   validationSchema: Yup.object({
@@ -39,27 +46,43 @@ const formik = useFormik({
   onSubmit: values => {
     setSubmit("Loading")
     setError()
-    console.log(values)    
-    Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/register`, values,{
-      headers : {          
-        apiKey: `${process.env.REACT_APP_APIKEY}`,
-      }
-    })
-    .then(response => {
-      console.log(response);
-      setSubmit("Sukses")
-      window.location.assign('/');      
-    }).catch(error => {
-         console.log("some error occurred", error)
-         setSubmit()
-         setError('Invalid Data')
+    console.log(values)  
+    if(values.password !== values.passwordRepeat){
+      setSubmit("")
+      setError("Mohon Maaf, Pastikan Password yang anda ketik sudah sesuai dengan Repeat Password")
+    }else{
+      console.log(selectedImage);
+      const formData = new FormData();        
+      formData.append('image', selectedImage);
+      Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
+        headers : {
+          apiKey: `${process.env.REACT_APP_APIKEY}`,      
+        }
+      }).then(response => {
+        console.log(response);
+        console.log("image url : "+response.data.url);
+        setUrl(response.data.url);
+        Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/register`, values,{
+          headers : {          
+            apiKey: `${process.env.REACT_APP_APIKEY}`,
+          }
         })
-
+        .then(response => {
+          console.log(response);
+          setSubmit("Sukses")
+          window.location.assign('/');      
+        }).catch(error => {
+          console.log("some error occurred", error)
+          setSubmit()
+          setError('Invalid Data')
+        })
+      })
+    }               
   },
 });
 
 return (
-  <>  
+  <>    
     <div className='register-container'>
       <div className='register-rectangle'>
         <div className='register-page'>
@@ -87,9 +110,10 @@ return (
               <Form.Control 
               id="profilePictureUrl"
               name="profilePictureUrl" 
-              type="text" 
+              type="file" 
               placeholder="Profile Picture"
-              onChange={formik.handleChange}
+              // onChange={formik.handleChange}
+              onChange={e => {formik.handleChange(e); handleFileSelect(e)}}
               onBlur={formik.handleBlur}
               value={formik.values.profilePictureUrl}
               />
