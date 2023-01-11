@@ -12,7 +12,6 @@ function Register() {
 const [error, setError] = useState();
 const [submit, setSubmit] = useState();
 const [selectedImage, setSelectedImage] = useState(null);
-const [url, setUrl] = useState('');
 
 const handleFileSelect = (event) => {  
   setSelectedImage(event.target.files[0]);
@@ -25,7 +24,7 @@ const formik = useFormik({
     password: '',
     passwordRepeat: '',
     role: 'general',
-    profilePictureUrl: url,
+    profilePictureUrl: '',
     phoneNumber: ''
   },
   validationSchema: Yup.object({
@@ -43,6 +42,7 @@ const formik = useFormik({
     profilePictureUrl: Yup.string(),
     phoneNumber: Yup.string(),
   }),
+  enableReinitialze: true,
   onSubmit: values => {
     setSubmit("Loading")
     setError()
@@ -60,8 +60,8 @@ const formik = useFormik({
         }
       }).then(response => {
         console.log(response);
-        console.log("image url : "+response.data.url);
-        setUrl(response.data.url);
+        formik.values.profilePictureUrl = response.data.url;
+        console.log("image url input : "+values.profilePictureUrl);
         Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/register`, values,{
           headers : {          
             apiKey: `${process.env.REACT_APP_APIKEY}`,
@@ -112,10 +112,8 @@ return (
               name="profilePictureUrl" 
               type="file" 
               placeholder="Profile Picture"
-              // onChange={formik.handleChange}
               onChange={e => {formik.handleChange(e); handleFileSelect(e)}}
               onBlur={formik.handleBlur}
-              value={formik.values.profilePictureUrl}
               />
             </Form.Group>
             {formik.touched.profilePictureUrl && formik.errors.profilePictureUrl ? (
