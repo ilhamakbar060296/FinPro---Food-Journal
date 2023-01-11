@@ -15,7 +15,7 @@ function Recipe() {
   const [add, setAdd] = useState(false);
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [ingredients, setIngredients] = useState(['']);
   const addClose = () => setAdd(false);
   const addRecipe = () => setAdd(true); 
@@ -86,32 +86,40 @@ const removeEditIngredient = (i) => {
 
   const handleAdd = (e) => {
     e.preventDefault()
-    console.log(name);
-    console.log(desc);
     console.log(image);
-    console.log(ingredients);
-    Axios(`${process.env.REACT_APP_BASEURL}/api/v1/create-food`,{
-      method: 'post',
-      data: {      
-        name: name,
-        description: desc,
-        imageUrl: image,
-        ingredients: [...ingredients],              
-      }, 
-      headers : {  
-        Authorization: 'Bearer ' + localStorage.getItem('jwt') ,        
+    const formData = new FormData();        
+    formData.append('image', image);
+    Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
+      headers : {
         apiKey: `${process.env.REACT_APP_APIKEY}`,
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
     }).then(response => {
-      setName('');
-      setDesc('');
-      setImage('');
-      setIngredients(['']);
-      getData();
-      addClose(false)
-    }).catch(error => {
-      console.log("Input ingredient harus dalam bentuk array ex : 'Ayam, Tepung, Bawang' ");
-    })
+      console.log(response);
+      console.log("image url : "+response.data.url);
+      Axios(`${process.env.REACT_APP_BASEURL}/api/v1/create-food`,{
+        method: 'post',
+        data: {      
+          name: name,
+          description: desc,
+          imageUrl: response.data.url,
+          ingredients: [...ingredients],              
+        }, 
+        headers : {  
+          Authorization: 'Bearer ' + localStorage.getItem('jwt') ,        
+          apiKey: `${process.env.REACT_APP_APIKEY}`,
+        }
+      }).then(response => {
+        setName('');
+        setDesc('');
+        setImage('');
+        setIngredients(['']);
+        getData();
+        addClose(false)
+      }).catch(error => {
+        console.log("Input ingredient harus dalam bentuk array ex : 'Ayam, Tepung, Bawang' ");
+      })
+    })    
   }
 
   const handleEdit = (id) => {
@@ -190,13 +198,8 @@ const removeEditIngredient = (i) => {
             {data.map((item, index) => {
               return <tr>
                 <td>{index + 1}</td>
-                <td><img  src={item.imageUrl} alt={item.name}></img></td>
-                <td style={{textAlign : "left"}}>
-                  <tr>
-                    <td>ID</td>
-                    <td>: </td>
-                    <td>{item.id}</td>
-                  </tr> 
+                <td><img className="recipeImg" src={item.imageUrl} alt={item.name}></img></td>
+                <td style={{textAlign : "left"}}> 
                   <tr>
                     <td>Name</td>
                     <td>: </td>
@@ -206,11 +209,27 @@ const removeEditIngredient = (i) => {
                     <td>Description</td>
                     <td>: </td>
                     <td>{item.description}</td>
+                  </tr>
+                  <tr>
+                    <td>Ingredient</td>
+                    <td>: </td> 
+                    <td>
+                      {item.ingredients.map((e) => {
+                        return <tr>
+                          - {e}
+                        </tr>
+                      })} 
+                    </td>                                    
                   </tr>                  
                   <tr>
                     <td>Rating</td>
                     <td>: </td>
                     <td>{item.rating}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Likes</td>
+                    <td>: </td>
+                    <td>{item.totalLikes}</td>
                   </tr>
                   <tr>
                     <td colSpan={3}>
@@ -241,7 +260,7 @@ const removeEditIngredient = (i) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicImage">
               <Form.Label>Image URL</Form.Label>
-              <Form.Control value={image} name="image" type="text" onChange={(e) => setImage(e.target.value)} placeholder="Place Image URL" required/>              
+              <Form.Control name="image" type="file" onChange={(e) => setImage(e.target.files[0])} placeholder="Place Image URL" required/>              
             </Form.Group>            
             <Form.Group className="mb-3" controlId="formBasicDesc">
               <Form.Label>Description</Form.Label>          
@@ -253,12 +272,7 @@ const removeEditIngredient = (i) => {
                 <div key={index}>
                   <div>
                     <Form.Control name="ingredients" value={element.ingredients} type="text" placeholder="Enter Ingredient" 
-                    onChange = {(e) => ingredientChange(e, index)} required/>                     
-                    {ingredients.length - 1 === index && ingredients.length < 10 && (
-                      <Button variant='success' onClick={addIngredient}>
-                      + Add Ingredient
-                      </Button>                      
-                    )}
+                    onChange = {(e) => ingredientChange(e, index)} required/>                                         
                   </div>
                   <div>
                   {ingredients.length > 1 && (
@@ -266,7 +280,13 @@ const removeEditIngredient = (i) => {
                     - Remove
                     </Button>
                   )}
-                  </div>                
+                  </div>  
+                  <br />
+                  {ingredients.length - 1 === index && ingredients.length < 10 && (
+                      <Button variant='success' onClick={addIngredient}>
+                      +Add Ingredient
+                      </Button>                      
+                    )}              
                 </div>                              
               ))}              
             </Form.Group>
@@ -302,12 +322,7 @@ const removeEditIngredient = (i) => {
                 <div key={index}>                  
                   <div>
                     <Form.Control name="ingredients" value={ingredientsEdit[index]} type="text" placeholder="Enter Ingredient" 
-                    onChange = {(e) => ingredientEditChange(e, index)} required/>                                         
-                    {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 10 && (
-                      <Button variant='success' onClick={addEditIngredient}>
-                      + Add Ingredient
-                      </Button>                      
-                    )}
+                    onChange = {(e) => ingredientEditChange(e, index)} required/>                                                             
                   </div>
                   <div>
                   {ingredientsEdit.length > 1 && (
@@ -315,7 +330,13 @@ const removeEditIngredient = (i) => {
                     - Remove
                     </Button>
                   )}
-                  </div>                
+                  </div> 
+                  <br />
+                  {ingredientsEdit.length - 1 === index && ingredientsEdit.length < 10 && (
+                      <Button variant='success' onClick={addEditIngredient}>
+                      +Add Ingredient
+                      </Button>                      
+                    )}               
                 </div>                              
               ))}              
             </Form.Group>

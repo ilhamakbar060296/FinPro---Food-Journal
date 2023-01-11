@@ -109,7 +109,7 @@ function Home() {
           {data.map((item, index) => {
             return <Row>
                   <Card style={{ width: '18rem', marginLeft : "60px", marginRight : "35px", marginBottom : "35px"}}>
-                    <Card.Img variant="top" src={item.imageUrl} />
+                    <Card.Img variant="top" src={item.imageUrl} style={{marginTop : "5px"}}/>
                     <Card.Body>
                       <Card.Title><b>{item.name}</b></Card.Title>
                       <Card.Text>{item.description}</Card.Text>                                          
