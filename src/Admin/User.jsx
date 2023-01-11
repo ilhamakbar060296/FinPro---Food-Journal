@@ -158,34 +158,49 @@ function User() {
       <Row>
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>  
         <Col>
-          <Row><h1>Table of User</h1></Row>
-          <Row><h2>Admin</h2></Row>
-          <Table responsive bordered hover className='table-Recipe'>
-            <thead>
+          <Row><h1>Profile</h1></Row> 
+          <Row>
+            <Col></Col>          
+            <Col>
+            <Table responsive bordered>
               <tr>
-                <th>No</th>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Action</th>
+                <td><img className="profileImg" src={adminFoto} alt={adminName}></img></td>
+                  <tr>
+                    <td>ID </td>
+                    <td>:</td>
+                    <td>{adminId}</td>
+                  </tr>
+                  <tr>
+                    <td>Nama </td>
+                    <td>:</td>
+                    <td>{adminName}</td>
+                  </tr>
+                  <tr>
+                    <td>Email </td>
+                    <td>:</td>
+                    <td>{adminEmail}</td>
+                  </tr>
+                  <tr>
+                    <td>Nomor Telpon </td>
+                    <td>:</td>
+                    <td>{adminPhone}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={3}>
+                      <div>This website is created for fulfilling Final Project Assignment.</div>
+                      <div>Front End Web Development Bootcamp dibimbing</div>
+                    </td>                    
+                  </tr>
+                  <tr>
+                    <td colSpan={3}> 
+                    <Button size="sm" variant="primary" onClick={() => getProfile()}>Edit</Button>                     
+                    </td>                    
+                  </tr>
               </tr>
-            </thead>
-            <tbody> 
-              <tr>
-                <td>1</td>
-                <td>{adminId}</td>
-                <td><img src={adminFoto} alt={adminName}></img></td>
-                <td>{adminName}</td> 
-                <td>{adminEmail}</td>
-                <td>{adminPhone}</td>               
-                <td>
-                  <Button size="sm" variant="primary" onClick={() => getProfile()}>Edit</Button>
-                </td>               
-              </tr>           
-            </tbody>
-          </Table>
+            </Table>
+            </Col>
+            <Col></Col>
+          </Row>                    
           <br />  
           <Row><h2>All User</h2></Row> 
           <Table responsive bordered hover className='table-Recipe'>

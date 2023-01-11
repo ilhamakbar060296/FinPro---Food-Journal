@@ -198,7 +198,7 @@ const removeEditIngredient = (i) => {
             {data.map((item, index) => {
               return <tr>
                 <td>{index + 1}</td>
-                <td><img  src={item.imageUrl} alt={item.name}></img></td>
+                <td><img className="recipeImg" src={item.imageUrl} alt={item.name}></img></td>
                 <td style={{textAlign : "left"}}> 
                   <tr>
                     <td>Name</td>
