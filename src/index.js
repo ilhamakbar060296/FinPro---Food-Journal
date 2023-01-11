@@ -7,10 +7,8 @@ import Register from './register';
 import Home from './Admin/Home';
 import Recipe from './Admin/Recipe';
 import User from './Admin/User';
-import About from './Admin/About';
 import GHome from './General/Home';
 import GRecipe from './General/Recipe';
-import GAbout from './General/About';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -37,8 +35,7 @@ const router = createBrowserRouter([
           <Nav className="me-auto">
             <Nav.Link href="Home">Home</Nav.Link>
             <Nav.Link href="User">User</Nav.Link>
-            <Nav.Link href="Recipe">Recipe</Nav.Link>
-            <Nav.Link href="About">About Us</Nav.Link>            
+            <Nav.Link href="Recipe">Recipe</Nav.Link>            
           </Nav>
           <Nav>            
           <Button variant="danger" onClick={() => logOut()}>Logout</Button>
@@ -54,8 +51,7 @@ const router = createBrowserRouter([
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="Home">Home</Nav.Link>            
-            <Nav.Link href="Recipe">Recipe</Nav.Link>
-            <Nav.Link href="About">About Us</Nav.Link>            
+            <Nav.Link href="Recipe">Recipe</Nav.Link>           
           </Nav>
           <Nav>            
           <Button variant="danger" onClick={() => logOut()}>Logout</Button>
@@ -125,23 +121,7 @@ const router = createBrowserRouter([
         </div>
         }
         </>
-      },
-      {
-        path: "/Admin/About",
-        element: <>
-        {localStorage.getItem('jwt') ?
-        <About /> :
-        <div className='forbid-container'>
-          <div className='rectangle'>
-            <div className='login-page'>
-            <h1>Forbidden Entry</h1><br /> 
-            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
-            </div>                  
-          </div>      
-        </div>
-        }        
-        </>
-      },
+      },      
       {
         path: "/General/Home",
         element: <>
@@ -174,22 +154,6 @@ const router = createBrowserRouter([
         }
         </>        
       },      
-      {
-        path: "/General/About",
-        element: <>
-        {localStorage.getItem('jwt') ?
-        <GAbout /> :
-        <div className='forbid-container'>
-          <div className='rectangle'>
-            <div className='login-page'>
-            <h1>Forbidden Entry</h1><br /> 
-            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
-            </div>                  
-          </div>      
-        </div>
-        }        
-        </>
-      },
     ],
   }
 ]);
