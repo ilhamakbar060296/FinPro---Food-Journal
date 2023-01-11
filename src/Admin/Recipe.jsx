@@ -198,13 +198,8 @@ const removeEditIngredient = (i) => {
             {data.map((item, index) => {
               return <tr>
                 <td>{index + 1}</td>
-                <td><img  src={item.imageUrl} alt={item.name}></img></td>
-                <td style={{textAlign : "left"}}>
-                  <tr>
-                    <td>ID</td>
-                    <td>: </td>
-                    <td>{item.id}</td>
-                  </tr> 
+                <td><img className="recipeImg" src={item.imageUrl} alt={item.name}></img></td>
+                <td style={{textAlign : "left"}}> 
                   <tr>
                     <td>Name</td>
                     <td>: </td>
@@ -214,11 +209,27 @@ const removeEditIngredient = (i) => {
                     <td>Description</td>
                     <td>: </td>
                     <td>{item.description}</td>
+                  </tr>
+                  <tr>
+                    <td>Ingredient</td>
+                    <td>: </td> 
+                    <td>
+                      {item.ingredients.map((e) => {
+                        return <tr>
+                          - {e}
+                        </tr>
+                      })} 
+                    </td>                                    
                   </tr>                  
                   <tr>
                     <td>Rating</td>
                     <td>: </td>
                     <td>{item.rating}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Likes</td>
+                    <td>: </td>
+                    <td>{item.totalLikes}</td>
                   </tr>
                   <tr>
                     <td colSpan={3}>
