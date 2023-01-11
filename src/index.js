@@ -5,9 +5,11 @@ import './index.css';
 import Login from './login';
 import Register from './register';
 import Home from './Admin/Home';
+import Like from './Admin/Like';
 import Recipe from './Admin/Recipe';
 import User from './Admin/User';
 import GHome from './General/Home';
+import GLike from './General/Like';
 import GRecipe from './General/Recipe';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="Home">Home</Nav.Link>
+            <Nav.Link href="Like">Like</Nav.Link>
             <Nav.Link href="User">User</Nav.Link>
             <Nav.Link href="Recipe">Recipe</Nav.Link>            
           </Nav>
@@ -46,11 +49,12 @@ const router = createBrowserRouter([
     : 
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">User : {localStorage.getItem('username')}</Navbar.Brand>
+        <Navbar.Brand href="Home">User : {localStorage.getItem('username')}</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="Home">Home</Nav.Link>            
+            <Nav.Link href="Like">Like</Nav.Link>
             <Nav.Link href="Recipe">Recipe</Nav.Link>           
           </Nav>
           <Nav>            
@@ -79,6 +83,22 @@ const router = createBrowserRouter([
         element: <>
         {localStorage.getItem('jwt') ?
         <Home /> :
+        <div className='forbid-container'>
+          <div className='rectangle'>
+            <div className='login-page'>
+            <h1>Forbidden Entry</h1><br /> 
+            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
+            </div>                  
+          </div>      
+        </div>
+        }
+        </>        
+      },
+      {
+        path: "/Admin/Like",
+        element: <>
+        {localStorage.getItem('jwt') ?
+        <Like /> :
         <div className='forbid-container'>
           <div className='rectangle'>
             <div className='login-page'>
@@ -127,6 +147,22 @@ const router = createBrowserRouter([
         element: <>
         {localStorage.getItem('jwt') ?
         <GHome /> :
+        <div className='forbid-container'>
+          <div className='rectangle'>
+            <div className='login-page'>
+            <h1>Forbidden Entry</h1><br /> 
+            <img id='stop' src="https://img.freepik.com/free-vector/no-entry-hand-sign-isolated-white_1284-41869.jpg" alt="Stop"></img>            
+            </div>                  
+          </div>      
+        </div>
+        }
+        </>        
+      },
+      {
+        path: "/General/Like",
+        element: <>
+        {localStorage.getItem('jwt') ?
+        <GLike /> :
         <div className='forbid-container'>
           <div className='rectangle'>
             <div className='login-page'>
