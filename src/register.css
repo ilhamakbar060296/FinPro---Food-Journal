@@ -18,3 +18,12 @@
 .register-page{
     margin-top: 10px;
 }
+@media screen and (max-width: 620px) {
+    .grid{
+        display: flex;
+        flex-direction: column;
+    }
+    /* .register-rectangle{
+        height: 110%;
+    } */
+}
