@@ -88,7 +88,7 @@ return (
         <div className='register-page'>
         <h1>Register Page</h1><br />              
         <Form onSubmit={formik.handleSubmit}>
-        <Row style={{margin : "1px"}}>
+        <Row className="grid" style={{margin : "1px"}}>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>nama</Form.Label>
