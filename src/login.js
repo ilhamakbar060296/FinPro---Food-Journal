@@ -26,7 +26,6 @@
       setSubmit("Loading")
       setError()
       console.log(values)
-      // Movie DB auth step 1
       Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/login`, values,{
         headers : {          
           apiKey: `${process.env.REACT_APP_APIKEY}`,

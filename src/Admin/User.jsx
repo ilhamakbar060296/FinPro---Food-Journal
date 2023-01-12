@@ -39,7 +39,10 @@ function User() {
     .then(response => {
       console.log(response);      
       setData(response.data.data)            
-    })
+    }).catch(error => {
+      console.log("Error 502 Bad Gateaway", error)
+      alert("Terjadi masalah pada server");
+     })
   }
 
   const getAdminData = () => {
@@ -161,8 +164,12 @@ function User() {
           <Row><h1>Profile</h1></Row> 
           <Row>
             <Col></Col>          
-            <Col>
+            <Col md={7}>
             <Table responsive bordered>
+              <tr>
+                <td></td>
+                <td><img className="profileAndroid" src={adminFoto} alt={adminName}></img></td>
+              </tr>
               <tr>
                 <td><img className="profileImg" src={adminFoto} alt={adminName}></img></td>
                   <tr>
@@ -186,7 +193,7 @@ function User() {
                     <td>{adminPhone}</td>
                   </tr>
                   <tr>
-                    <td colSpan={3}>
+                    <td colSpan={3} >
                       <div>This website is created for fulfilling Final Project Assignment.</div>
                       <div>Front End Web Development Bootcamp dibimbing</div>
                     </td>                    
@@ -203,7 +210,7 @@ function User() {
           </Row>                    
           <br />  
           <Row><h2>All User</h2></Row> 
-          <Table responsive bordered hover className='table-Recipe'>
+          <Table responsive bordered hover className='table-User'>
             <thead>
               <tr>
                 <th>No</th>
@@ -220,15 +227,15 @@ function User() {
               return <tr>
                 <td>{index + 1}</td>
                 <td>{item.id}</td>
-                <td><img src={item.profilePictureUrl} alt={item.name}></img></td>
+                <td><img className="userImg" src={item.profilePictureUrl} alt={item.name}></img></td>
                 <td>{item.name}</td> 
                 <td>{item.email}</td>
                 <td>{item.phoneNumber}</td>
                 <td>
                   <ButtonGroup>
                   {radios.map((radio, idx) => (                  
-                    <ToggleButton
-                      key={idx}
+                    <ToggleButton 
+                      key={idx}                      
                       id={`radio-${idx}-${index}`}
                       type="radio"
                       variant={idx % 2 ? 'outline-success' : 'outline-danger'}

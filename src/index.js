@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     (localStorage.getItem('role') === 'admin'  ? 
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="Home">User : {localStorage.getItem('username')} ({localStorage.getItem('role')})</Navbar.Brand>
+        <Navbar.Brand>User : {localStorage.getItem('username')} ({localStorage.getItem('role')})</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     : 
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="Home">User : {localStorage.getItem('username')}</Navbar.Brand>
+        <Navbar.Brand>User : {localStorage.getItem('username')}</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

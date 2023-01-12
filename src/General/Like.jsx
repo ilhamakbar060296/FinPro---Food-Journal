@@ -42,7 +42,10 @@ function Home() {
     .then(response => {
       console.log(response);
       setData(response.data.data)      
-    })
+    }).catch(error => {
+      console.log("Error 502 Bad Gateaway", error)
+      alert("Terjadi masalah pada server");
+     })
   }
 
   const getRating = (id) => {
@@ -150,7 +153,7 @@ function Home() {
           {data.map((item, index) => {
             return <Row>
                   <Card style={{ width: '18rem', marginLeft : "60px", marginRight : "35px", marginBottom : "35px"}}>
-                    <Card.Img variant="top" src={item.imageUrl} style={{marginTop : "5px"}} onClick={() => getFood(item.id)}/>
+                    <Card.Img className="recipeImg" variant="top" src={item.imageUrl} style={{marginTop : "5px"}} onClick={() => getFood(item.id)}/>
                     <Card.Body>
                       <Card.Title><b>{item.name}</b></Card.Title>
                       <Card.Text>{item.description}</Card.Text>                                          
