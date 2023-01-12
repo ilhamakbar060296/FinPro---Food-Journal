@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-heart": "^1.0.6",
     "react-hook-form": "^7.41.3",
+    "react-icons": "^4.7.1",
     "react-native-uuid": "^2.0.1",
     "react-rating": "^2.0.5",
     "react-rating-stars-component": "^2.2.0",

@@ -33,7 +33,7 @@ function Home() {
   const showFood = (id) => setFood(id);
 
   const getData = () => {
-    Axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/foods`,{
+    Axios.get(`${process.env.REACT_APP_BASEURL}/api/v1/like-foods`,{
       headers : {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         apiKey: `${process.env.REACT_APP_APIKEY}`,
@@ -145,7 +145,7 @@ function Home() {
       <Row>
         <Col sm={1} style={{backgroundColor : "#d6830e"}}></Col>
         <Col>
-          <Row><h1>Welcome to Food Journal</h1></Row><br></br>
+          <Row><h1>My Favorite Food</h1></Row><br></br>
           <Col style={{display : "flex", flexWrap: "wrap"}}>
           {data.map((item, index) => {
             return <Row>
