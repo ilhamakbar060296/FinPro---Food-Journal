@@ -24,15 +24,13 @@
     }),
     onSubmit: values => {
       setSubmit("Loading")
-      setError()
-      console.log(values)
+      setError()      
       Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/login`, values,{
         headers : {          
           apiKey: `${process.env.REACT_APP_APIKEY}`,
         }
       })
       .then(response => {
-        console.log(response);
         const name = response.data.user.name;
         const role = response.data.user.role;
         const JWT_Token = response.data.token;        
@@ -46,7 +44,6 @@
           window.location.assign('/General/Home');        
         }
       }).catch(error => {
-           console.log("some error occurred", error)
            setSubmit()
            setError('Invalid Username or Password')
           })

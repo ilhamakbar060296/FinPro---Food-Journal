@@ -36,11 +36,9 @@ function Recipe() {
       }
     })
     .then(response => {
-      console.log(response);
       setData(response.data.data)      
     }).catch(error => {
-      console.log("Error 502 Bad Gateaway", error)
-      alert("Terjadi masalah pada server");
+      alert("Error 502 Bad Gateaway", error);
      })
   }
 
@@ -89,7 +87,6 @@ const removeEditIngredient = (i) => {
 
   const handleAdd = (e) => {
     e.preventDefault()
-    console.log(image);
     const formData = new FormData();        
     formData.append('image', image);
     Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
@@ -98,8 +95,6 @@ const removeEditIngredient = (i) => {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
     }).then(response => {
-      console.log(response);
-      console.log("image url : "+response.data.url);
       Axios(`${process.env.REACT_APP_BASEURL}/api/v1/create-food`,{
         method: 'post',
         data: {      
@@ -120,14 +115,12 @@ const removeEditIngredient = (i) => {
         getData();
         addClose(false)
       }).catch(error => {
-        console.log("Input ingredient harus dalam bentuk array ex : 'Ayam, Tepung, Bawang' ");
+        alert("Input ingredient harus dalam bentuk array ex : 'Ayam, Tepung, Bawang' ");
       })
     })    
   }
 
   const handleEdit = (id) => {
-    console.log("Food ID : "+id);
-    console.log(imageEdit);
     const formData = new FormData();        
     formData.append('image', imageEdit);
     Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
@@ -136,8 +129,6 @@ const removeEditIngredient = (i) => {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
     }).then(response => {
-      console.log(response);
-      console.log("image url : "+response.data.url);
       Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-food/${id}`,{
         method: 'post',
         data: {

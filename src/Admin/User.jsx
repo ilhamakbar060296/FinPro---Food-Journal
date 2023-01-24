@@ -36,12 +36,10 @@ function User() {
         apiKey: `${process.env.REACT_APP_APIKEY}`,
       }
     })
-    .then(response => {
-      console.log(response);      
+    .then(response => {     
       setData(response.data.data)            
     }).catch(error => {
-      console.log("Error 502 Bad Gateaway", error)
-      alert("Terjadi masalah pada server");
+      alert("Error 502 Bad Gateaway", error);
      })
   }
 
@@ -52,8 +50,7 @@ function User() {
         apiKey: `${process.env.REACT_APP_APIKEY}`,
       }
     })
-    .then(response => {
-      console.log(response);          
+    .then(response => {         
       setAdminId(response.data.user.id)      
       setAdminName(response.data.user.name)
       setAdminEmail(response.data.user.email)
@@ -69,8 +66,7 @@ function User() {
         apiKey: `${process.env.REACT_APP_APIKEY}`,
       }
     })
-    .then(response => {
-      console.log(response);                     
+    .then(response => {                    
       editAdminName(response.data.user.name)
       editAdminEmail(response.data.user.email)
       editAdminFoto(response.data.user.profilePictureUrl)
@@ -80,8 +76,6 @@ function User() {
   }
 
   const updateProfile = () => { 
-    console.log("Admin Name : "+editName); 
-    console.log(editFoto);
     const formData = new FormData();        
     formData.append('image', editFoto);
     Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
@@ -90,8 +84,6 @@ function User() {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),        
       }
     }).then(response => {
-      console.log(response);
-      console.log("image url : "+response.data.url);
       Axios(`${process.env.REACT_APP_BASEURL}/api/v1/update-profile`,{
         method: 'post',
         data: {

@@ -17,11 +17,9 @@ function Recipe() {
       }
     })
     .then(response => {
-      console.log(response);
       setData(response.data.data)      
     }).catch(error => {
-      console.log("Error 502 Bad Gateaway", error)
-      alert("Terjadi masalah pada server");
+      alert("Error 502 Bad Gateaway", error);
      })
   }
 

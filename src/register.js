@@ -46,12 +46,10 @@ const formik = useFormik({
   onSubmit: values => {
     setSubmit("Loading")
     setError()
-    console.log(values)  
     if(values.password !== values.passwordRepeat){
       setSubmit("")
       setError("Mohon Maaf, Pastikan Password yang anda ketik sudah sesuai dengan Repeat Password")
     }else{
-      console.log(selectedImage);
       const formData = new FormData();        
       formData.append('image', selectedImage);
       Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/upload-image`,formData,{  
@@ -59,20 +57,16 @@ const formik = useFormik({
           apiKey: `${process.env.REACT_APP_APIKEY}`,      
         }
       }).then(response => {
-        console.log(response);
         formik.values.profilePictureUrl = response.data.url;
-        console.log("image url input : "+values.profilePictureUrl);
         Axios.post(`${process.env.REACT_APP_BASEURL}/api/v1/register`, values,{
           headers : {          
             apiKey: `${process.env.REACT_APP_APIKEY}`,
           }
         })
         .then(response => {
-          console.log(response);
           setSubmit("Sukses")
           window.location.assign('/');      
         }).catch(error => {
-          console.log("some error occurred", error)
           setSubmit()
           setError('Invalid Data')
         })

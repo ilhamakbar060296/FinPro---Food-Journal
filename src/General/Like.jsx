@@ -40,11 +40,9 @@ function Home() {
       }
     })
     .then(response => {
-      console.log(response);
       setData(response.data.data)      
     }).catch(error => {
-      console.log("Error 502 Bad Gateaway", error)
-      alert("Terjadi masalah pada server");
+      alert("Error 502 Bad Gateaway", error);
      })
   }
 
@@ -55,7 +53,6 @@ function Home() {
       }
     })
     .then(response => {
-      console.log(response);
       setDataRate(response.data.data);
       showRater(id);    
     })
@@ -78,7 +75,6 @@ function Home() {
   }
 
   const likeHandle = (id, state) => {
-    console.log("Item id : "+id); 
     if(state === false){
       Axios(`${process.env.REACT_APP_BASEURL}/api/v1/like`,{
         method: 'post',
@@ -91,7 +87,6 @@ function Home() {
         }
       })
       .then(response => {
-        console.log("Menjadi Suka");
         getData();
       })
     }else{
@@ -106,16 +101,12 @@ function Home() {
         }
       })
       .then(response => {
-        console.log("Menjadi Tidak Suka");
         getData();
       })
     }
   }
 
-  const ratingChanged = (id) => {
-    console.log("I rate this food : "+rate);
-    console.log("This Food ID : "+id);  
-    console.log("My Comment : "+comment);  
+  const ratingChanged = (id) => { 
     Axios(`${process.env.REACT_APP_BASEURL}/api/v1/rate-food/${id}`,{
         method: 'post',
         data: {
@@ -134,7 +125,6 @@ function Home() {
   }
 
   const commentHandler = (id) => {
-    console.log("This Food ID : "+id);
     showComment(id);
   }
 
